@@ -51,6 +51,7 @@ public class SecurityFilter implements Filter {
 
 
         }
+
         //response.setHeader(USER_ID_HEADER, "12");
         chain.doFilter(req, res);
     }
