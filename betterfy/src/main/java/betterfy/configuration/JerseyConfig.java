@@ -13,6 +13,6 @@ import javax.ws.rs.ApplicationPath;
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
         //register(ClassName.class);
-        packages("betterfy.service");
+        packages("betterfy.controller");
     }
 }
