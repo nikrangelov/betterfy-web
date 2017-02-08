@@ -1,5 +1,8 @@
 package betterfy.controller;
 
+import betterfy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -11,9 +14,16 @@ import javax.ws.rs.Produces;
 @Path("/test")
 public class Test {
 
+    @Autowired
+    UserService userService;
+
     @GET
     @Produces("application/json")
     public String test() {
+
+        if(userService == null){
+            return "Not ok!";
+        }
         return "Jersey: Up and Running!";
     }
 
