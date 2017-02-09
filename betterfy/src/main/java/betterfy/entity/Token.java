@@ -1,7 +1,11 @@
 package betterfy.entity;
 
+import betterfy.service.TokenService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by nik on 2/8/17.
@@ -9,6 +13,10 @@ import java.util.Date;
 @Entity
 @Table(name="TOKENS")
 public class Token {
+
+    @Transient
+    @Autowired
+    TokenService tokenService;
 
     @Id
     @Column(name="TOKEN_ID")
@@ -31,6 +39,25 @@ public class Token {
     public Token(String token, Date expirationDate) {
         this.token = token;
         this.expirationDate = expirationDate;
+    }
+    public void initToken(){
+        String token = null;
+        do {
+            token = UUID.randomUUID().toString().replaceAll("-", "");
+        }while(tokenService.isTokenUsed(token));
+        Date today = new Date();
+        Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24)); // adds one day in milliseconds
+        this.token = token;
+        this.expirationDate = tomorrow;
+    }
+    public boolean isTokenExpired(){
+        Date today = new Date();
+        int tmp = today.compareTo(expirationDate);
+        if(tmp == -1){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public long getId() {

@@ -1,15 +1,17 @@
 package betterfy.repository;
 
 import betterfy.entity.Token;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
+
+
+import javax.transaction.Transactional;
 
 /**
  * Created by nik on 2/8/17.
  */
 
-@Repository
-public interface TokenRepository<Token, Long> {
+@Transactional
+public interface TokenRepository extends CrudRepository<Token, Long> {
 
     public Token findByToken(String token);
-
 }

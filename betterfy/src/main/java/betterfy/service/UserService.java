@@ -19,4 +19,15 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public boolean createUser(User user){
+        try {
+
+            userRepository.save(user);
+        }
+        catch (Exception ex) {
+            return false;
+        }
+        return true;
+    }
+
 }
