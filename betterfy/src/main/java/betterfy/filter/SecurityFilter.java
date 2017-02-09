@@ -1,5 +1,10 @@
 package betterfy.filter;
 
+import betterfy.entity.Token;
+import betterfy.entity.User;
+import betterfy.service.TokenService;
+import betterfy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Priority;
@@ -20,8 +25,15 @@ import java.io.IOException;
 @Priority(Priorities.AUTHENTICATION)
 public class SecurityFilter implements Filter {
 
-    public static final String USER_ID_HEADER = "USER_ID";
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    TokenService tokenService;
+
+    public static final String USER_TOKEN_HEADER = "USER_TOKEN";
     private static final String SECURED_URL_PREFIX = "secured";
+    private static final String USER_ID_HEADER = "USER_ID";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -36,7 +48,7 @@ public class SecurityFilter implements Filter {
         String authToken = null;
 
         String requestedUrl = request.getRequestURI().toString();
-        authToken = request.getHeader(USER_ID_HEADER);
+        authToken = request.getHeader(USER_TOKEN_HEADER);
         // DoSystem.out.println(authToken);
 
         if(requestedUrl.contains(SECURED_URL_PREFIX)){
@@ -51,15 +63,24 @@ public class SecurityFilter implements Filter {
 
 
         }
-
-        //response.setHeader(USER_ID_HEADER, "12");
+        long userID = getUserIdByToken(authToken);
+        response.setHeader(USER_ID_HEADER, Long.toString(userID));
         chain.doFilter(req, res);
     }
 
 
-    private boolean isTokenValid(String token) {
-        
+    private boolean isTokenValid(String tokenString) {
+        Token token = tokenService.findByToken(tokenString);
+        if(token==null){
+            return false;
+        }
         return true;
+    }
+
+    public long getUserIdByToken(String tokenString){
+        Token token = tokenService.findByToken(tokenString);
+        long id = token.getUser().getId();
+        return id;
     }
 
     @Override

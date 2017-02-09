@@ -15,6 +15,10 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    public User findById(long id){
+        return userRepository.findById(id);
+    }
+
     public User findByEmail(String email){
         return userRepository.findByEmail(email);
     }
@@ -33,5 +37,7 @@ public class UserService {
     public boolean updateUser(User user){
         return createUser(user);
     }
+
+
 
 }

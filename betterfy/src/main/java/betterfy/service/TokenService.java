@@ -21,6 +21,11 @@ public class TokenService {
                 return false;
             }else{
                 return true;
+
             }
+    }
+
+    public Token findByToken(String token){
+        return tokenRepository.findByToken(token);
     }
 }

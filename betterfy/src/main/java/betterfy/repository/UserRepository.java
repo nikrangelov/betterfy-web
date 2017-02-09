@@ -13,6 +13,8 @@ import javax.transaction.Transactional;
 @Transactional
 public interface UserRepository extends CrudRepository<User, Long>{
 
+    public User findById(long id);
+
     public User findByEmail(String email);
 }
 
