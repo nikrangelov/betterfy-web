@@ -23,7 +23,7 @@ public class User {
     @Column(name="PASSWORD")
     private String password;
 
-    @OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL)
     //@JoinColumn(name="TOKEN_ID")
     private List<Token> tokens = new ArrayList<Token>();
 
@@ -35,6 +35,10 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public void addToken(Token token){
+        this.tokens.add(token);
     }
 
     public long getId() {

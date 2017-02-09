@@ -33,6 +33,14 @@ public class Token {
     @JoinColumn(name="USER_ID")
     private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Token(){
         //empty constructor
     }
@@ -42,9 +50,9 @@ public class Token {
     }
     public void initToken(){
         String token = null;
-        do {
+        //do {
             token = UUID.randomUUID().toString().replaceAll("-", "");
-        }while(tokenService.isTokenUsed(token));
+        //}while(tokenService.isTokenUsed(token));
         Date today = new Date();
         Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24)); // adds one day in milliseconds
         this.token = token;

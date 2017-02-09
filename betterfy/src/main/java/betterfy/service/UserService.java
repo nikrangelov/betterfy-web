@@ -30,4 +30,8 @@ public class UserService {
         return true;
     }
 
+    public boolean updateUser(User user){
+        return createUser(user);
+    }
+
 }
