@@ -23,7 +23,7 @@ public class User {
     @Column(name="PASSWORD")
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL)
     //@JoinColumn(name="TOKEN_ID")
     private List<Token> tokens = new ArrayList<Token>();
 

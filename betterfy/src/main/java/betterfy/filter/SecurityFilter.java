@@ -58,7 +58,7 @@ public class SecurityFilter implements Filter {
 
 
     private boolean isTokenValid(String token) {
-
+        
         return true;
     }
 
