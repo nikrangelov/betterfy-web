@@ -48,9 +48,10 @@ public class Test {
     @GET
     @Produces("application/json")
     public String securedTest(@HeaderParam(USER_ID_HEADER) long id){
-        User user = userService.findById(id);
-        String email = user.getEmail();
-        return email;
+        //User user = userService.findById(id);
+        //String email = user.getEmail();
+        //return email;
+        return "Secured res access!" + id;
     }
 
 }

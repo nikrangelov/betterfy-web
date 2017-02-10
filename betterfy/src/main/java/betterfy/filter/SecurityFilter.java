@@ -2,6 +2,7 @@ package betterfy.filter;
 
 import betterfy.entity.Token;
 import betterfy.entity.User;
+import betterfy.library.HeaderMapRequestWrapper;
 import betterfy.service.TokenService;
 import betterfy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class SecurityFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest)req;
         HttpServletResponse response = (HttpServletResponse) res;
+        HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(request);
         String authToken = null;
 
         String requestedUrl = request.getRequestURI().toString();
@@ -60,12 +62,15 @@ public class SecurityFilter implements Filter {
                 throw new WebApplicationException(builder.build());
             }
 
+            long userID = getUserIdByToken(authToken);
+            requestWrapper.addHeader(USER_ID_HEADER, Long.toString(userID));
+            //response.setHeader(USER_ID_HEADER, Long.toString(userID));
 
+            System.out.println(userID);
 
         }
-        long userID = getUserIdByToken(authToken);
-        response.setHeader(USER_ID_HEADER, Long.toString(userID));
-        chain.doFilter(req, res);
+
+        chain.doFilter(requestWrapper, res);
     }
 
 
