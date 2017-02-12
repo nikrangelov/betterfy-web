@@ -22,11 +22,12 @@ $( document ).ready(function() {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     alert("ajax finished successfully!");
+                    localStorage.token = response.token;
                     //$.cookie("test", 1);
                     //console.log("Debug");
                     //your success code
                     //console.log(response);
-                    alert(response.token);
+                    alert(localStorage.token);
                 },
                 error: function (jqXHR, exception) {
                     //your error code
