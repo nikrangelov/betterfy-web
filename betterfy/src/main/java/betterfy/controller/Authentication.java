@@ -1,8 +1,9 @@
 package betterfy.controller;
 
-import betterfy.entity.Credentials;
+import betterfy.requests.Credentials;
 import betterfy.entity.Token;
 import betterfy.entity.User;
+import betterfy.response.TokenResponse;
 import betterfy.service.UserService;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by nik on 1/30/17.
@@ -30,9 +29,11 @@ public class Authentication {
     @Produces("application/json")
     @Consumes("application/json")
     public Response authenticateUser(Credentials credentials){
-
         String email = credentials.getEmail();
         String password = credentials.getPassword();
+
+        System.out.println(email + " " + password);
+
         String stringToken = null;
         User user =  userService.findByEmail(email);
         if(user == null){
@@ -57,7 +58,9 @@ public class Authentication {
         //String token = authenticate(email, password);
 
         //String token = "null";
-        return Response.ok(stringToken).build();
+        System.out.println(stringToken);
+        TokenResponse tokenResponse = new TokenResponse(stringToken);
+        return Response.ok(tokenResponse).build();
     }
 
 

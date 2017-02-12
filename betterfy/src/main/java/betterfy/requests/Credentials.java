@@ -1,4 +1,4 @@
-package betterfy.entity;
+package betterfy.requests;
 
 /**
  * Created by nik on 1/30/17.
