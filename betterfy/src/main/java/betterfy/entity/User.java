@@ -1,8 +1,12 @@
 package betterfy.entity;
 
+import org.hibernate.annotations.IndexColumn;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by nik on 2/8/17.
@@ -27,6 +31,16 @@ public class User {
     //@JoinColumn(name="TOKEN_ID")
     private List<Token> tokens = new ArrayList<Token>();
 
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL)
+    private Set<Habit> habits = new HashSet<Habit>();
+
+    public Set<Habit> getHabits() {
+        return habits;
+    }
+
+    public void setHabits(Set<Habit> habits) {
+        this.habits = habits;
+    }
 
     public User(){
         //empty constructor
