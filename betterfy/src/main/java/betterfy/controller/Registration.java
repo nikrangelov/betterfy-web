@@ -1,6 +1,6 @@
 package betterfy.controller;
 
-import betterfy.requests.Credentials;
+import betterfy.request.Credentials;
 import betterfy.entity.User;
 import betterfy.service.UserService;
 import org.mindrot.jbcrypt.BCrypt;

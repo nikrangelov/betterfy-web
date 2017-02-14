@@ -1,4 +1,4 @@
-package betterfy.requests;
+package betterfy.request;
 
 /**
  * Created by nik on 1/30/17.
