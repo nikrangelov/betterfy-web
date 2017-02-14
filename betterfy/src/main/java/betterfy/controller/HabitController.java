@@ -18,6 +18,16 @@ public class HabitController {
         return Response.ok("Msg").build();
     }
 
+    @Path("{id}")
+    @POST
+    @Produces("application/json")
+    @Consumes("application/json")
+    public Response getHabitById(@PathParam("id") long id){
+        return Response.ok("Msg").build();
+    }
+
+
+
     @Path("addHabit")
     @POST
     @Produces("application/json")
@@ -42,6 +52,13 @@ public class HabitController {
     public Response addDate(){
         return Response.ok("Msg").build();
     }
-    
+
+    @Path("removeDate/{id}")
+    @POST
+    @Produces("application/json")
+    @Consumes("application/json")
+    public Response removeDate(){
+        return Response.ok("Msg").build();
+    }
 
 }
