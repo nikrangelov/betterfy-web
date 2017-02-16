@@ -51,8 +51,8 @@ public class SecurityFilter implements Filter {
 
         String requestedUrl = request.getRequestURI().toString();
         authToken = request.getHeader(USER_TOKEN_HEADER);
-        // DoSystem.out.println(authToken);
-
+        System.out.println(authToken);
+        System.out.println(isTokenValid(authToken));
         if(requestedUrl.contains(SECURED_URL_PREFIX)){
 
             if(!isTokenValid(authToken)){

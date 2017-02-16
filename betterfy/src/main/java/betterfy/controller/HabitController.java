@@ -1,5 +1,12 @@
 package betterfy.controller;
 
+import betterfy.entity.Habit;
+import betterfy.entity.User;
+import betterfy.request.HabitDetails;
+import betterfy.service.HabitService;
+import betterfy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
@@ -9,6 +16,14 @@ import javax.ws.rs.core.Response;
 
 @Path("secured/habit")
 public class HabitController {
+
+    private static final String USER_ID_HEADER = "USER_ID";
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    HabitService habitService;
 
     @Path("all")
     @POST
@@ -28,12 +43,23 @@ public class HabitController {
 
 
 
-    @Path("addHabit")
+    @Path("add")
     @POST
     @Produces("application/json")
     @Consumes("application/json")
-    public Response addHabit(){
-        return Response.ok("Msg").build();
+    public Response addHabit(HabitDetails habitDetails, @HeaderParam(USER_ID_HEADER) long id){
+        Habit habit = new Habit();
+        habit.setName(habitDetails.getName());
+        habit.setQuestion(habitDetails.getQuestion());
+        habit.setTimes(habitDetails.getTimes());
+        habit.setDays(habitDetails.getDays());
+        User user = userService.findById(id);
+        habit.setUser(user);
+        user.getHabits().add(habit);
+
+        System.out.println("Hello");
+        userService.updateUser(user);
+        return Response.ok().build();
     }
 
     @Path("deleteHabit/{id}")
