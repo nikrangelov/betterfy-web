@@ -1,6 +1,13 @@
 package betterfy.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import javax.validation.constraints.Null;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,15 +37,16 @@ public class Habit {
     private int days;
 
 
-    @ElementCollection
+    @ElementCollection(fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @CollectionTable(
             name="CHECKED_DAYS",
             joinColumns=@JoinColumn(name="HABIT_ID")
     )
     @Column(name="DAYS")
-    private List<Date> checkedDays;
+    private List<Date> checkedDays = new ArrayList<Date>();
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="USER_ID")
     private User user;

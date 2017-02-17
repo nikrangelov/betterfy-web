@@ -3,6 +3,7 @@ package betterfy.controller;
 import betterfy.entity.Habit;
 import betterfy.entity.User;
 import betterfy.request.HabitDetails;
+import betterfy.response.AllHabitsResponse;
 import betterfy.service.HabitService;
 import betterfy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,17 @@ public class HabitController {
     HabitService habitService;
 
     @Path("all")
-    @POST
+    @GET
     @Produces("application/json")
     @Consumes("application/json")
-    public Response getAllHabits(){
-        return Response.ok("Msg").build();
+    public Response getAllHabits(@HeaderParam(USER_ID_HEADER) long id){
+        User user = userService.findById(id);
+        AllHabitsResponse allHabitsResponse = new AllHabitsResponse();
+        for(Habit habit: user.getHabits()){
+            allHabitsResponse.addHabit(habit);
+            System.out.println(habit.getName());
+        }
+        return Response.ok(allHabitsResponse).build();
     }
 
     @Path("{id}")
