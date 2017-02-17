@@ -31,7 +31,7 @@ public class User {
     //@JoinColumn(name="TOKEN_ID")
     private List<Token> tokens = new ArrayList<Token>();
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL)
     private Set<Habit> habits = new HashSet<Habit>();
 
     public Set<Habit> getHabits() {

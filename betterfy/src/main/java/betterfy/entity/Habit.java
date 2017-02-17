@@ -14,6 +14,7 @@ public class Habit {
 
     @Id
     @Column(name="HABIT_ID")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
 
     @Column(name="NAME")

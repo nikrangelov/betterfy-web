@@ -56,14 +56,14 @@ public class HabitController {
         User user = userService.findById(id);
         habit.setUser(user);
         user.getHabits().add(habit);
-
-        System.out.println("Hello");
+        System.out.println("Hello " + user.getHabits().size());
         userService.updateUser(user);
+        //habitService.createHabit(habit);
         return Response.ok().build();
     }
 
     @Path("deleteHabit/{id}")
-    @POST
+    @DELETE
     @Produces("application/json")
     @Consumes("application/json")
     public Response deleteHabit(@PathParam("id") long id){
