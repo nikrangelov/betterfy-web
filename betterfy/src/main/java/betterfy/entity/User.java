@@ -34,6 +34,10 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL)
     private Set<Habit> habits = new HashSet<Habit>();
 
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL)
+    private Set<Goal> goals = new HashSet<Goal>();
+
     public Set<Habit> getHabits() {
         return habits;
     }
