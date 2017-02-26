@@ -69,7 +69,7 @@ public class HabitController {
         return Response.ok().build();
     }
 
-    @Path("deleteHabit/{id}")
+    @Path("delete/{id}")
     @DELETE
     @Produces("application/json")
     @Consumes("application/json")
@@ -86,11 +86,19 @@ public class HabitController {
         return Response.ok("Msg").build();
     }
 
-    @Path("removeDate/{id}")
+    @Path("deleteDate/{id}")
     @POST
     @Produces("application/json")
     @Consumes("application/json")
-    public Response removeDate(){
+    public Response deleteDate(){
+        return Response.ok("Msg").build();
+    }
+
+    @Path("statistic")
+    @GET
+    @Produces("application/json")
+    @Consumes("application/json")
+    public Response statistic(){
         return Response.ok("Msg").build();
     }
 

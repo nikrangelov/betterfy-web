@@ -28,7 +28,7 @@ public class Goal {
     boolean isFinsihed = false;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="goal", cascade=CascadeType.ALL)
-    private Set tasks = new HashSet<Task>();
+    private Set<Task> tasks = new HashSet<Task>();
 
 
     @JsonIgnore
